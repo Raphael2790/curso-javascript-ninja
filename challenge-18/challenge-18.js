@@ -123,11 +123,11 @@ https://regex101.com/#javascript e verifique se as capturas estão
 corretas, para depois aplicar no código ;)
 */
 console.log( '\nFazer replace dos textos das tags:' );
-var regexTagsHTML = / \<[a-z]+\>\<\/[a-z]+\> /g 
+var regexTagsHTML = /\<\w+\>[^<].+\<\/\w+\>/g 
 
 var textHTML = '<h1>Título da página</h1>'
 var textHTML2 = '<p>Este é um parágrafo</p>'
-var textHTML3 = '<footer></footer>'
+var textHTML3 = '<footer>Rodapé</footer>'
 
 
 console.log(textHTML.match(regexTagsHTML))
