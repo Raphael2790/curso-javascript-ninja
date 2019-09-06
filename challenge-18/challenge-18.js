@@ -123,15 +123,23 @@ https://regex101.com/#javascript e verifique se as capturas estão
 corretas, para depois aplicar no código ;)
 */
 console.log( '\nFazer replace dos textos das tags:' );
-var regexTagsHTML = /\<\w+\>[^<].+\<\/\w+\>/g 
+var regexTagsHTML = /(\<(\w+)\>)([^<].+)(\<\/\w+\>)/g 
 
 var textHTML = '<h1>Título da página</h1>'
 var textHTML2 = '<p>Este é um parágrafo</p>'
 var textHTML3 = '<footer>Rodapé</footer>'
 
-
 console.log(textHTML.match(regexTagsHTML))
 console.log(textHTML2.match(regexTagsHTML))
 console.log(textHTML3.match(regexTagsHTML))
+
+console.log(textHTML.replace(regexTagsHTML, '$1 O texto dentro da tag "$2" é "$3" $4'))
+console.log(textHTML2.replace(regexTagsHTML,'$1 O texto dentro da tag "$2" é "$3" $4') )
+console.log(textHTML3.replace(regexTagsHTML,'$1 O texto dentro da tag "$2" é "$3" $4') )
+
+console.log(
+    '<h1>Título da página</h1><p>Este é um parágrafo</p><footer>Rodapé</footer>'
+    .replace(regexTagsHTML, 
+        '$1 O texto dentro da tag "$2" é "$3" $4\n' ))
 
 })()
