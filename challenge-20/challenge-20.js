@@ -93,8 +93,13 @@ Caso contrário, mostre um alerta com a mensagem:
 $button.addEventListener('click', Enviar )
 
 function Enviar() {
-    alert('Enviado')
-}
+        if($message.value == '' || $inputEmail.value == '' || $inputUsername == '') {
+            alert('Algum campo não preenchido')
+        } else {
+            alert('Mensagem enviada')
+        }
+    }
+
 
 /*
 Crie uma função chamada `isValidEmail`, que será usada na validação do
