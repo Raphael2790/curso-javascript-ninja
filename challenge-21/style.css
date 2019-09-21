@@ -1,0 +1,19 @@
+button {
+padding: 5px;
+border-radius: 10px;
+display: inline;
+border-style: double;
+background-color: (rgba(30, 8, 236, 0.5))
+}
+
+input {
+    border-radius: 10px;
+    box-shadow: 20px solid;
+    text-align: center;
+    align-content: center
+}
+
+h1 {
+    color: red;
+    text-align: left;
+}
