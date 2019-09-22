@@ -1,3 +1,5 @@
+(function () {
+    'use strict';
 /*
 O desafio de hoje será um pequeno projeto: um cronômetro!
 As regras para criação do cronômetro são as seguintes:
@@ -15,29 +17,29 @@ usar o nome que achar melhor, desde que ele seja semântico, ou seja, o nome
 dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 */
 
-var input = document.querySelector('input[data-js="cronômetro"]')
-var init = document.querySelector('button[data-js="iniciar"]')
-var stop = document.querySelector('button[data-js="parar"]')
-var reset = document.querySelector('button[data-js="resetar"]')
+var $input = document.querySelector('input[data-js="cronômetro"]')
+var $init = document.querySelector('button[data-js="iniciar"]')
+var $stop = document.querySelector('button[data-js="parar"]')
+var $reset = document.querySelector('button[data-js="resetar"]')
 var temporizador;
 
-input.value = 0
+$init.addEventListener('click', startTimer, false)
+$stop.addEventListener('click', stopTimer, false)
+$reset.addEventListener('click', resetTimer , false)
 
-init.addEventListener('click', iniciar)
-
-function iniciar() {
-    input.value++
-    return temporizador = setTimeout(iniciar , 1000)
+function startTimer() {
+    $input.value++
+    return temporizador = setTimeout(startTimer , 1000)
 }
 
 
-stop.addEventListener('click', function parar(){
+function stopTimer(){
     clearTimeout(temporizador)
-})
+}
 
-reset.addEventListener('click', function resetar() {
-    input.value = 0
-    clearTimeout(temporizador)
-})
+function resetTimer() {
+    $input.value = 0
+    stopTimer ()
+}
 
-
+})()
