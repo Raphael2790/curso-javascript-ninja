@@ -1,4 +1,6 @@
-  (function (){
+  (function (win, doc){
+    'use strict';
+
     /*
     Crie dois objetos, que serão duas pessoas. Cada um deve ter as propriedades
     `name` e `lastName`, preenchidos com o nome e sobrenome da pessoa.
@@ -39,27 +41,35 @@
     Na primeira linha, dentro da função, deixe um console.log para mostrar todos
     os parâmetros passados para essa função.
     */
-    // ?
+    function sum() {
+      return Array.prototype.reduce.call(arguments, function (acumulador, item){
+          console.log(arguments)
+          acumulador + item
+      })
+    }
 
     /*
     Mostre no console que a função acima funciona, invocando-a em 3 console.log
     diferentes, com quantidades variáveis de parâmetros passados.
     */
     console.log( '\nSomar alguns números:' );
-    // ?
+    
+    console.log(sum(2, 2 , 5))
+    console.log(sum(4 , 7 , 8, 9))
+    console.log(sum(2 , 5))
 
     /*
     Declare uma variável chamada `userEntry`, que irá receber alguns valores
     entrados pelo usuário. Mostre para o usuário a seguinte frase:
     "Entre com alguns números que serão somados:"
     */
-    // ?
+    var userEntry = prompt('Entre com alguns números que serão somados:')
 
     /*
     Mostre no console o valor entrado pelo usuário:
     */
     console.log( '\nEntrada do usuário:' );
-    // ?
+    console.log(userEntry)
 
     /*
     Crie uma função chamada `justNumbers`, que recebe por parâmetro uma string
@@ -82,4 +92,4 @@
     */
     console.log( '\nSomar números entrados pelo usuário:' );
     // ?
-})()
+})(window , document)
