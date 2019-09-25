@@ -1,4 +1,4 @@
-  (function (win, doc){
+  (function (){
     'use strict';
 
     /*
@@ -31,8 +31,8 @@
       return this.name + ' ' + this.lastname
     }
 
-    console.log(getFullName(person1))
-    console.log(getFullName(person2))
+    console.log(getFullName.call(person1))
+    console.log(getFullName.call(person2))
 
     /*
     Crie uma função chamada `sum`. Essa função pode receber uma lista de
@@ -42,9 +42,9 @@
     os parâmetros passados para essa função.
     */
     function sum() {
+      console.log(arguments)
       return Array.prototype.reduce.call(arguments, function (acumulador, item){
-          console.log(arguments)
-          acumulador + item
+         return acumulador + item
       })
     }
 
@@ -63,13 +63,13 @@
     entrados pelo usuário. Mostre para o usuário a seguinte frase:
     "Entre com alguns números que serão somados:"
     */
-    var userEntry = prompt('Entre com alguns números que serão somados:')
+    
 
     /*
     Mostre no console o valor entrado pelo usuário:
     */
     console.log( '\nEntrada do usuário:' );
-    console.log(userEntry)
+    
 
     /*
     Crie uma função chamada `justNumbers`, que recebe por parâmetro uma string
@@ -92,4 +92,4 @@
     */
     console.log( '\nSomar números entrados pelo usuário:' );
     // ?
-})(window , document)
+})()
