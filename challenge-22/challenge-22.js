@@ -64,11 +64,13 @@
     "Entre com alguns números que serão somados:"
     */
     
+    var userEntry = prompt('Entre com alguns números que serão somados:')
 
     /*
     Mostre no console o valor entrado pelo usuário:
     */
     console.log( '\nEntrada do usuário:' );
+    console.log(userEntry)
     
 
     /*
@@ -77,19 +79,32 @@
     da string. Mostre a representação em string dessa função no console.
     */
     console.log( '\nFunção que limpa entrada do usuário (somente números):' );
-    // ?
+    
+    function justNumbers(string) {
+      var regex = new RegExp ('\\d' , 'g');
+      return Array.prototype.filter.call(string, function(item, index) {
+       if(string.match(regex))
+      })
+        
+      ;
+    }
+
+    console.log(justNumbers.toString())
 
     /*
     Usando a função acima, faça a limpeza dos valores entrados pelo usuário,
     atribuindo o resultado à uma variável `numbers`.
     */
     console.log( '\nEntrada do usuário limpa. Somente números:' );
-    // ?
+    var numbers = justNumbers(userEntry)
+    console.log(numbers)
 
     /*
     Agora com o array de números, utilize a função `sum` para somar todos os
     números desse array e mostre o resultado no console.
     */
     console.log( '\nSomar números entrados pelo usuário:' );
-    // ?
+    
+    console.log(sum(numbers))
+
 })()
