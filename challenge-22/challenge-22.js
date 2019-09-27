@@ -44,7 +44,7 @@
     function sum() {
       console.log(arguments)
       return Array.prototype.reduce.call(arguments, function (acumulador, item){
-         return acumulador + item
+         return +acumulador + +item
       })
     }
 
@@ -82,12 +82,11 @@
     
     function justNumbers(string) {
       var regex = new RegExp ('\\d' , 'g');
-      return Array.prototype.filter.call(string, function(item, index) {
-       if(string.match(regex))
-      })
+        return string.match(regex)
+      }
         
-      ;
-    }
+      
+    
 
     console.log(justNumbers.toString())
 
@@ -96,8 +95,12 @@
     atribuindo o resultado à uma variável `numbers`.
     */
     console.log( '\nEntrada do usuário limpa. Somente números:' );
+    
     var numbers = justNumbers(userEntry)
-    console.log(numbers)
+
+    numbers.forEach(function (item) { 
+      console.log(item)
+    })
 
     /*
     Agora com o array de números, utilize a função `sum` para somar todos os
@@ -105,6 +108,6 @@
     */
     console.log( '\nSomar números entrados pelo usuário:' );
     
-    console.log(sum(numbers))
+    console.log(sum.apply(sum, numbers))
 
 })()
