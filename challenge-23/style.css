@@ -1,0 +1,56 @@
+h1 {
+    text-align: center;
+    align-self: auto;
+    color: blueviolet;
+    width: 300px;
+    border: 2px solid blue;
+    background-color: white;
+    border-radius: 20px;
+}
+
+#tema {
+    position: center;
+    display: block;
+    box-shadow: 2px blue;
+    justify-content: center;
+}
+
+#campo-visor {
+    border: 2px solid blue;
+    width: 300px;
+    background-color: white;
+    text-align: center;
+    color: cyan;
+    align-self: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.botao {
+    border: 2px solid;
+    width: 100px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 20px;
+    border-color: black;
+}
+
+#calc-compl {
+    border: 2px solid blue;
+    display: inline-table;
+    padding: 10px;
+    width: 350px;
+    justify-content: center;
+    margin-left: 10px;
+    background-color: yellow;
+    border-radius: 20px
+}
+
+#visor {
+    border: none;
+    text-align: center;
+    background: cyan;
+    width: 300px;
+    border-radius: 20px;
+}
