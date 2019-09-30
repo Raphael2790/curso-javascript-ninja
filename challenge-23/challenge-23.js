@@ -23,3 +23,30 @@ multiplicação (x), então no input deve aparecer "1+2x".
 input;
 - Ao pressionar o botão "CE", o input deve ficar zerado.
 */
+
+(function (){
+    var $input = document.querySelector('#visor')
+    var $botaonum = document.querySelectorAll('.btnum')
+    var $botaoper = document.querySelectorAll('.btnop')
+
+    $botaonum.forEach(function (item) {
+        item.addEventListener('click', function () {
+            if($input.value == '0')
+            $input.value = item.value
+            else
+            $input.value = $input.value + item.value
+        })
+    })
+
+    $botaoper.forEach( function (item) {
+        item.addEventListener('click', function () {
+            if($input.value == '0')
+            event.preventDefault()
+            else
+            $input.value = $input.value + item.value
+        })
+    })
+
+        
+
+})()

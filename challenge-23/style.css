@@ -40,11 +40,12 @@ h1 {
     border: 2px solid blue;
     display: inline-table;
     padding: 10px;
-    width: 350px;
+    width: 320px;
     justify-content: center;
     margin-left: 10px;
     background-color: yellow;
-    border-radius: 20px
+    border-radius: 20px;
+    align-items: center;
 }
 
 #visor {
@@ -53,4 +54,24 @@ h1 {
     background: cyan;
     width: 300px;
     border-radius: 20px;
+}
+
+.btnum {
+    border: 2px solid;
+    width: 100px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 20px;
+    border-color: black;
+}
+
+.btnop {
+    border: 2px solid;
+    width: 100px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 20px;
+    border-color: black;
 }
