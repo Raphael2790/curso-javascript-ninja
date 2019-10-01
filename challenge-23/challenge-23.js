@@ -25,28 +25,38 @@ input;
 */
 
 (function (){
+    'use strict';
+
     var $input = document.querySelector('#visor')
     var $botaonum = document.querySelectorAll('.btnum')
     var $botaoper = document.querySelectorAll('.btnop')
+    var botaoce = document.querySelector('[data-js="CE"]')
 
-    $botaonum.forEach(function (item) {
-        item.addEventListener('click', function () {
-            if($input.value == '0')
-            $input.value = item.value
-            else
-            $input.value = $input.value + item.value
-        })
+    Array.prototype.forEach.call( $botaonum , function (item) {
+        item.addEventListener('click', adicionaNumeros, false)
     })
 
-    $botaoper.forEach( function (item) {
-        item.addEventListener('click', function () {
-            if($input.value == '0')
-            event.preventDefault()
-            else
-            $input.value = $input.value + item.value
-        })
+    Array.prototype.forEach.call( $botaoper, function (item) {
+        item.addEventListener('click', adicionaOperadores, false)
     })
 
-        
+    botaoce.addEventListener('click', limpaVisor , false)
+
+    function limpaVisor() {
+        $input.value = '0'
+    }
+
+    function adicionaNumeros() {
+        if($input.value == '0')
+        $input.value = this.value
+        else
+        $input.value = $input.value + this.value
+    }
+
+    function adicionaOperadores() {
+            $input.value += this.value
+            console.log(this)
+    }
+    
 
 })()
