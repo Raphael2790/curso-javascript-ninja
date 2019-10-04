@@ -31,6 +31,7 @@ input;
     var $botaonum = document.querySelectorAll('.btnum')
     var $botaoper = document.querySelectorAll('.btnop')
     var botaoce = document.querySelector('[data-js="CE"]')
+    var botaoIgual = document.querySelector('[data-js="Igual"]')
 
     Array.prototype.forEach.call( $botaonum , function (item) {
         item.addEventListener('click', adicionaNumeros, false)
@@ -42,21 +43,39 @@ input;
 
     botaoce.addEventListener('click', limpaVisor , false)
 
+    botaoIgual.addEventListener('click', mostraResultado, false)
+
     function limpaVisor() {
         $input.value = '0'
     }
 
     function adicionaNumeros() {
-        if($input.value == '0')
-        $input.value = this.value
-        else
-        $input.value = $input.value + this.value
+        return $input.value = $input.value + this.value
     }
 
     function adicionaOperadores() {
-            $input.value += this.value
-            console.log(this)
+        removeOperador()
+        return $input.value += this.value
     }
+
+    function isTheLastItemAnOperator() {
+        var operadores = ['+' , '-', '*', '/']
+        var lastItem = $input.value.split('').pop()
+        return operadores.some(function (operador) {
+            return operador === lastItem
+        })  
+    }
+    
+    function removeOperador() {
+        if(isTheLastItemAnOperator()) {
+            $input.value = $input.value.slice(0, -1)
+        }
+    }
+    
+    function mostraResultado() {
+        removeOperador()
+    }
+
     
 
 })()
