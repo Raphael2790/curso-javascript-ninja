@@ -74,8 +74,11 @@ input;
     
     function mostraResultado() {
         removeOperador()
+        var visorValues = $input.value.match(/\d+[\+\-\*\/]/g)
+        visorValues.reduce(function ( acumulado, item) {
+            
+        })
     }
-
     
 
 })()
