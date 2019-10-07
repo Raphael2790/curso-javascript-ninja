@@ -54,29 +54,43 @@ input;
     }
 
     function adicionaOperadores() {
-        removeOperador()
-        return $input.value += this.value
+        $input.value = removeOperador($input.value)
+        $input.value += this.value
     }
 
-    function isTheLastItemAnOperator() {
+    function isTheLastItemAnOperator(number) {
         var operadores = ['+' , '-', '*', '/']
-        var lastItem = $input.value.split('').pop()
+        var lastItem = number.split('').pop()
         return operadores.some(function (operador) {
             return operador === lastItem
         })  
     }
     
-    function removeOperador() {
-        if(isTheLastItemAnOperator()) {
-            $input.value = $input.value.slice(0, -1)
+    function removeOperador(number) {
+        if(isTheLastItemAnOperator(number)) {
+            return number.slice(0, -1)
         }
+        return number;
     }
     
     function mostraResultado() {
-        removeOperador()
-        var visorValues = $input.value.match(/\d+[\+\-\*\/]/g)
-        visorValues.reduce(function ( acumulado, item) {
-            
+        $input.value = removeOperador($input.value)
+        var visorValues = $input.value.match(/(?:\d+)[\+\-\*\/]?/g)
+        $input.value = visorValues.reduce( function ( acumulado , atual) {
+            var firstValue = acumulado.slice(0, -1);
+            var operador = acumulado.split('').pop();
+            var lastValue = removeOperador(atual);
+            var lastOperator = isTheLastItemAnOperator(atual) ? atual.split('').pop() : ''
+            switch(operador) {
+                case '+':
+                    return (+firstValue + +lastValue) + lastOperator;
+                case '-':
+                    return (+firstValue - +lastValue) + lastOperator;
+                case '*' :
+                    return (+firstValue * +lastValue) + lastOperator;
+                case '/' :
+                    return (+firstValue / +lastValue) + lastOperator;
+            }
         })
     }
     
