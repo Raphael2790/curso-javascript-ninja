@@ -10,6 +10,7 @@ listeners de eventos, etc);
 mesma funcionalidade.
 */
 (function (){
+  'use strict';
 
   var $visor = document.querySelector('[data-js="visor"]');
   var $buttonsNumbers = document.querySelectorAll('[data-js="button-number"]');
@@ -22,7 +23,6 @@ mesma funcionalidade.
   }
 
   function initEvents() {
-
   Array.prototype.forEach.call($buttonsNumbers, function(button) {
     button.addEventListener('click', handleClickNumber, false);
   });
@@ -48,33 +48,46 @@ mesma funcionalidade.
   }
 
   function isLastItemAnOperation(number) {
-    var operations = ['+', '-', 'x', '÷'];
+    var operations = getOperation();
     var lastItem = number.split('').pop();
     return operations.some(function(operator) {
       return operator === lastItem;
     });
   }
 
+  function getOperation() {
+    return Array.prototype.map.call($buttonsOperations, function (button) {
+      return button.value;
+    })
+  }
+
   function removeLastItemIfItIsAnOperator(string) {
-    if(isLastItemAnOperation(string)) {
+    if(isLastItemAnOperation(string))
       return string.slice(0, -1);
-    }
     return string;
     }
 
   function handleClickEqual() {
     $visor.value = removeLastItemIfItIsAnOperator($visor.value);
-    var allValues = $visor.value.match(/\d+[+x÷-]?/g);
+    var allValues = $visor.value.match(getRegexOperations());
     $visor.value = allValues.reduce(calculateAllValues)
+  }
+
+  function getRegexOperations() {
+    return new RegExp('\\d+[' + getOperation().join('') + ']?', 'g')
   }
 
   function calculateAllValues(accumulated, actual) {
     var firstValue = accumulated.slice(0, -1);
     var operator = accumulated.split('').pop();
     var lastValue = removeLastItemIfItIsAnOperator(actual);
-    var lastOperator = isLastItemAnOperation(actual) ? actual.split('').pop() : '';
+    var lastOperator = getLastOperator(actual);
     return doOperation(operator, firstValue, lastValue) + lastOperator
   };
+
+  function getLastOperator(value) {
+    return  isLastItemAnOperation(value) ? value.split('').pop() : ''
+  }
 
   function doOperation(operator, firstValue, lastValue) {
     switch(operator) {
