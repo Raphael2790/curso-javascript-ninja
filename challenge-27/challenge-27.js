@@ -30,12 +30,47 @@ O método isNull deve retornar `true` se o valor for null ou undefined.
     }
 
     DOM.prototype.forEach = function (){
-        Array.prototype.forEach.call( this.element, function (item){
-            return item
-        })    
+        return Array.prototype.forEach.apply( this.element, arguments)    
     }
 
-    ($selections.forEach(item))
+    DOM.prototype.map = function () {
+        return Array.prototype.map.apply(this.element, arguments)
+    }
 
+    DOM.prototype.filter = function () {
+        return Array.prototype.filter.apply(this.element, arguments)
+    }
+
+    DOM.prototype.every = function () {
+        return Array.prototype.every.apply(this.element, arguments)
+    }
+
+    DOM.prototype.some = function () {
+        return Array.prototype.some.apply(this.element, arguments)
+    }
+
+    console.log($selections)
+    $selections.forEach(function (item) {
+        console.log(item)
+    })
+
+    $selections.map(function (item, index) {
+        console.log(item, index)
+    })
+
+    $selections.filter(function (item, index) {
+        if(index / 2 !== 0)
+        console.log(item, index)
+    })
+
+    $selections.every( function (item) {
+        if(item)
+        console.log('O item existe')
+    })
+
+    $selections.some( function (item) {
+        if(item.firstChild.nodeValue === 'Link 1')
+        console.log(item)
+    })
 
 })()
