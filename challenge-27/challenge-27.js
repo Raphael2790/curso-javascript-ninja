@@ -49,6 +49,18 @@ O método isNull deve retornar `true` se o valor for null ou undefined.
         return Array.prototype.some.apply(this.element, arguments)
     }
 
+    DOM.prototype.reduce = function (){
+        return Array.prototype.reduce.apply(this.element, arguments)
+    }
+
+    DOM.prototype.reduceRight = function () {
+        return Array.prototype.reduceRight.apply(this.element, arguments)
+    }
+
+    DOM.prototype.isArray = function (param) {
+        return Object.prototype.toString.call(param) === '[object Array]'
+    }
+
     console.log($selections)
     $selections.forEach(function (item) {
         console.log(item)
@@ -72,5 +84,17 @@ O método isNull deve retornar `true` se o valor for null ou undefined.
         if(item.firstChild.nodeValue === 'Link 1')
         console.log(item)
     })
+
+    var links =  $selections.reduce( function (acumulador,atual,index) {
+        return acumulador + '' + atual.getAttribute('data-js') + '' + index
+    }, 0)
+    alert(links)
+
+    var linksAoContrario =  $selections.reduceRight( function (acumulador,atual,index) {
+        return acumulador + '' + atual.getAttribute('data-js') + '' + index
+    })
+    alert(linksAoContrario)
+
+    alert($selections.isArray([0, 1 , 4 , 6]))
 
 })()
