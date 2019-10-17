@@ -61,6 +61,31 @@ O método isNull deve retornar `true` se o valor for null ou undefined.
         return Object.prototype.toString.call(param) === '[object Array]'
     }
 
+    DOM.prototype.isObject = function (param) {
+        return Object.prototype.toString.call(param) === '[object Object]'
+    }
+
+    DOM.prototype.isFunction = function (param) {
+        return Object.prototype.toString.call(param) === '[object Function]'
+    }
+
+    DOM.prototype.isNumber = function (param) {
+        return Object.prototype.toString.call(param) === '[object Number]'
+    }
+
+    DOM.prototype.isString = function (param) {
+        return Object.prototype.toString.call(param) === '[object String]'
+    }
+
+    DOM.prototype.isBoolean = function (param) {
+        return Object.prototype.toString.call(param) === '[object Boolean]'
+    }
+
+    DOM.prototype.isNull = function (param) {
+        return Object.prototype.toString.call(param) === '[object Null]' ||
+        Object.prototype.toString.call(param) === '[object Undefined]'
+    }
+
     console.log($selections)
     $selections.forEach(function (item) {
         console.log(item)
@@ -88,13 +113,13 @@ O método isNull deve retornar `true` se o valor for null ou undefined.
     var links =  $selections.reduce( function (acumulador,atual,index) {
         return acumulador + '' + atual.getAttribute('data-js') + '' + index
     }, 0)
-    alert(links)
+    console.log(links)
 
     var linksAoContrario =  $selections.reduceRight( function (acumulador,atual,index) {
         return acumulador + '' + atual.getAttribute('data-js') + '' + index
     })
-    alert(linksAoContrario)
+    console.log(linksAoContrario)
 
-    alert($selections.isArray([0, 1 , 4 , 6]))
+    console.log($selections.isArray([0, 1 , 4 , 6]))
 
 })()
