@@ -127,9 +127,36 @@
     }
 
     function handleReadyStateChange() {
-      if(ajax.readyState === 4 && ajax.status === 200) {
-        console.log('Popular formulário', ajax.responseText);
-      }
-      console.log('Carregando...')
+      if(isRequestOk()) 
+       fillCEPFields()
     }
+
+    function isRequestOk() {
+      return ajax.readyState === 4 && ajax.status === 200;
+    }
+
+    function fillCEPFields() {
+      var data = parseData();
+      var $logradouro = new DOM('[data-js="logradouro"]')
+      var $bairro = new DOM('[data-js="bairro"]')
+      var $estado = new DOM('[data-js="estado"]')
+      var $cidade = new DOM('[data-js="cidade"]')
+      var $cep = new DOM('[data-js="cep"]')
+      $logradouro.get()[0].textContent = ` ${data.address}`
+      $bairro.get()[0].textContent = ` ${data.district}`
+      $estado.get()[0].textContent = ` ${data.state}`
+      $cidade.get()[0].textContent = ` ${data.city}`
+      $cep.get()[0].textContent = ` ${data.code}` 
+    }
+
+    function parseData() {
+      var result;
+      try {
+        result = JSON.parse(ajax.responseText);
+      } catch (error) {
+        result = null;
+      }
+      return result
+    }
+
 })()
