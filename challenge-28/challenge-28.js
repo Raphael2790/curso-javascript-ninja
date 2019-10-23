@@ -25,3 +25,111 @@
   - Utilize a lib DOM criada anteriormente para facilitar a manipulação e
   adicionar as informações em tela.
   */
+
+(() => {
+  'use strict';
+
+    var $selections = new DOM('[data-js="link"]')
+
+    function DOM(elements) {
+        this.element = document.querySelectorAll(elements)
+    }
+
+    DOM.prototype.on = function on(eventType, callback) {
+      Array.prototype.forEach.call(this.element, function (element) {
+        element.addEventListener(eventType, callback, false);
+      })
+    }
+    
+    DOM.prototype.off = function off(eventType, callback) {
+      Array.prototype.forEach.call( this.element, function (element) {
+        element.removeEventListener(eventType, callback, false);
+      })
+    }
+    
+    DOM.prototype.get = function get () {
+      return this.element
+    }    
+
+    DOM.prototype.forEach = function (){
+        return Array.prototype.forEach.apply( this.element, arguments)    
+    }
+
+    DOM.prototype.map = function () {
+        return Array.prototype.map.apply(this.element, arguments)
+    }
+
+    DOM.prototype.filter = function () {
+        return Array.prototype.filter.apply(this.element, arguments)
+    }
+
+    DOM.prototype.every = function () {
+        return Array.prototype.every.apply(this.element, arguments)
+    }
+
+    DOM.prototype.some = function () {
+        return Array.prototype.some.apply(this.element, arguments)
+    }
+
+    DOM.prototype.reduce = function (){
+        return Array.prototype.reduce.apply(this.element, arguments)
+    }
+
+    DOM.prototype.reduceRight = function () {
+        return Array.prototype.reduceRight.apply(this.element, arguments)
+    }
+
+    DOM.prototype.isArray = function (param) {
+        return Object.prototype.toString.call(param) === '[object Array]'
+    }
+
+    DOM.prototype.isObject = function (param) {
+        return Object.prototype.toString.call(param) === '[object Object]'
+    }
+
+    DOM.prototype.isFunction = function (param) {
+        return Object.prototype.toString.call(param) === '[object Function]'
+    }
+
+    DOM.prototype.isNumber = function (param) {
+        return Object.prototype.toString.call(param) === '[object Number]'
+    }
+
+    DOM.prototype.isString = function (param) {
+        return Object.prototype.toString.call(param) === '[object String]'
+    }
+
+    DOM.prototype.isBoolean = function (param) {
+        return Object.prototype.toString.call(param) === '[object Boolean]'
+    }
+
+    DOM.prototype.isNull = function (param) {
+        return Object.prototype.toString.call(param) === '[object Null]' ||
+        Object.prototype.toString.call(param) === '[object Undefined]'
+    }
+
+    var $formCEP = new DOM('[data-js="form-cep"]')
+    var $inputCEP = new DOM('[data-js="input-cep"]')
+    $formCEP.on('submit', handleClickSubmitForm, false)
+    var ajax = new XMLHttpRequest()
+
+    function handleClickSubmitForm() {
+      event.preventDefault()
+      var url = `http://apps.widenet.com.br/busca-cep/api/cep/${cleanCEP()}.json`
+      ajax.open('GET', url);
+      ajax.send();
+      ajax.addEventListener('readystatechange', handleReadyStateChange)
+    }
+
+    function cleanCEP() {
+      var regex = new RegExp('\D', 'g')
+      return $inputCEP.get()[0].value.replace(regex, '')
+    }
+
+    function handleReadyStateChange() {
+      if(ajax.readyState === 4 && ajax.status === 200) {
+        console.log('Popular formulário', ajax.responseText);
+      }
+      console.log('Carregando...')
+    }
+})()

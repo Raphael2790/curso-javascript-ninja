@@ -121,5 +121,5 @@ O método isNull deve retornar `true` se o valor for null ou undefined.
     console.log(linksAoContrario)
 
     console.log($selections.isArray([0, 1 , 4 , 6]))
-
+    
 })()
