@@ -124,8 +124,9 @@
       var url = `http://apps.widenet.com.br/busca-cep/api/cep/${cleanCEP()}.json`
       ajax.open('GET', url);
       ajax.send();
-      setTimeout( getMessage('loading'), 1000)
+      setTimeout( getMessage('loading'), 2000)
       ajax.addEventListener('readystatechange', handleReadyStateChange)
+      $inputCEP.get()[0].value = ''
     }
 
     function cleanCEP() {
@@ -136,20 +137,18 @@
     function handleReadyStateChange() {
       if(isRequestOk()){
        fillCEPFields()
-       getMessage('ok')
       }
     }
-
+    
     function isRequestOk() {
       return ajax.readyState === 4 && ajax.status === 200;
     }
-
+    
     function fillCEPFields() {
       var data = parseData();
-      console.log(data)
-      if(data.status == 0) {
-      return $status.get()[0].textContent = ` ${data.message}`
-      }
+      if(data.status == 0)
+        return getMessage('error')
+      getMessage('ok')
       $logradouro.get()[0].textContent = ` ${data.address}`
       $bairro.get()[0].textContent = ` ${data.district}`
       $estado.get()[0].textContent = ` ${data.state}`
