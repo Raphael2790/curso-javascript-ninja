@@ -88,36 +88,43 @@
     }
 
     DOM.prototype.isFunction = function (param) {
-        return Object.prototype.toString.call(param) === '[object Function]'
+      return Object.prototype.toString.call(param) === '[object Function]'
     }
-
+    
     DOM.prototype.isNumber = function (param) {
-        return Object.prototype.toString.call(param) === '[object Number]'
+      return Object.prototype.toString.call(param) === '[object Number]'
     }
-
+    
     DOM.prototype.isString = function (param) {
-        return Object.prototype.toString.call(param) === '[object String]'
+      return Object.prototype.toString.call(param) === '[object String]'
     }
 
     DOM.prototype.isBoolean = function (param) {
         return Object.prototype.toString.call(param) === '[object Boolean]'
-    }
-
-    DOM.prototype.isNull = function (param) {
+      }
+      
+      DOM.prototype.isNull = function (param) {
         return Object.prototype.toString.call(param) === '[object Null]' ||
         Object.prototype.toString.call(param) === '[object Undefined]'
-    }
-
+      }
+      
     var $formCEP = new DOM('[data-js="form-cep"]')
     var $inputCEP = new DOM('[data-js="input-cep"]')
-    $formCEP.on('submit', handleClickSubmitForm, false)
+    var $logradouro = new DOM('[data-js="logradouro"]')
+    var $bairro = new DOM('[data-js="bairro"]')
+    var $estado = new DOM('[data-js="estado"]')
+    var $cidade = new DOM('[data-js="cidade"]')
+    var $cep = new DOM('[data-js="cep"]')
+    var $status = new DOM('[data-js="status"]')
     var ajax = new XMLHttpRequest()
+    $formCEP.on('submit', handleClickSubmitForm, false)
 
     function handleClickSubmitForm() {
       event.preventDefault()
       var url = `http://apps.widenet.com.br/busca-cep/api/cep/${cleanCEP()}.json`
       ajax.open('GET', url);
       ajax.send();
+      setTimeout( getMessage('loading'), 1000)
       ajax.addEventListener('readystatechange', handleReadyStateChange)
     }
 
@@ -127,8 +134,10 @@
     }
 
     function handleReadyStateChange() {
-      if(isRequestOk()) 
+      if(isRequestOk()){
        fillCEPFields()
+       getMessage('ok')
+      }
     }
 
     function isRequestOk() {
@@ -137,11 +146,10 @@
 
     function fillCEPFields() {
       var data = parseData();
-      var $logradouro = new DOM('[data-js="logradouro"]')
-      var $bairro = new DOM('[data-js="bairro"]')
-      var $estado = new DOM('[data-js="estado"]')
-      var $cidade = new DOM('[data-js="cidade"]')
-      var $cep = new DOM('[data-js="cep"]')
+      console.log(data)
+      if(data.status == 0) {
+      return $status.get()[0].textContent = ` ${data.message}`
+      }
       $logradouro.get()[0].textContent = ` ${data.address}`
       $bairro.get()[0].textContent = ` ${data.district}`
       $estado.get()[0].textContent = ` ${data.state}`
@@ -157,6 +165,16 @@
         result = null;
       }
       return result
+    }
+
+    function getMessage(type) {
+      var cep = $inputCEP.get()[0].value
+      var messages = {
+        loading: `Buscando informações para o CEP ${cep} ....`,
+        ok: `Endereço referente ao CEP ${cep}:`,
+        error: `Não encontramos o endereço para o CEP ${cep}.`
+      };
+      $status.get()[0].textContent = messages[type]
     }
 
 })()
