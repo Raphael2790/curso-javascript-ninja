@@ -29,85 +29,7 @@
 (() => {
   'use strict';
 
-    var $selections = new DOM('[data-js="link"]')
-
-    function DOM(elements) {
-        this.element = document.querySelectorAll(elements)
-    }
-
-    DOM.prototype.on = function on(eventType, callback) {
-      Array.prototype.forEach.call(this.element, function (element) {
-        element.addEventListener(eventType, callback, false);
-      })
-    }
-    
-    DOM.prototype.off = function off(eventType, callback) {
-      Array.prototype.forEach.call( this.element, function (element) {
-        element.removeEventListener(eventType, callback, false);
-      })
-    }
-    
-    DOM.prototype.get = function get () {
-      return this.element
-    }    
-
-    DOM.prototype.forEach = function (){
-        return Array.prototype.forEach.apply( this.element, arguments)    
-    }
-
-    DOM.prototype.map = function () {
-        return Array.prototype.map.apply(this.element, arguments)
-    }
-
-    DOM.prototype.filter = function () {
-        return Array.prototype.filter.apply(this.element, arguments)
-    }
-
-    DOM.prototype.every = function () {
-        return Array.prototype.every.apply(this.element, arguments)
-    }
-
-    DOM.prototype.some = function () {
-        return Array.prototype.some.apply(this.element, arguments)
-    }
-
-    DOM.prototype.reduce = function (){
-        return Array.prototype.reduce.apply(this.element, arguments)
-    }
-
-    DOM.prototype.reduceRight = function () {
-        return Array.prototype.reduceRight.apply(this.element, arguments)
-    }
-
-    DOM.prototype.isArray = function (param) {
-        return Object.prototype.toString.call(param) === '[object Array]'
-    }
-
-    DOM.prototype.isObject = function (param) {
-        return Object.prototype.toString.call(param) === '[object Object]'
-    }
-
-    DOM.prototype.isFunction = function (param) {
-      return Object.prototype.toString.call(param) === '[object Function]'
-    }
-    
-    DOM.prototype.isNumber = function (param) {
-      return Object.prototype.toString.call(param) === '[object Number]'
-    }
-    
-    DOM.prototype.isString = function (param) {
-      return Object.prototype.toString.call(param) === '[object String]'
-    }
-
-    DOM.prototype.isBoolean = function (param) {
-        return Object.prototype.toString.call(param) === '[object Boolean]'
-      }
-      
-      DOM.prototype.isNull = function (param) {
-        return Object.prototype.toString.call(param) === '[object Null]' ||
-        Object.prototype.toString.call(param) === '[object Undefined]'
-      }
-      
+  function app() {
     var $formCEP = new DOM('[data-js="form-cep"]')
     var $inputCEP = new DOM('[data-js="input-cep"]')
     var $logradouro = new DOM('[data-js="logradouro"]')
@@ -126,7 +48,7 @@
       ajax.send();
       setTimeout( getMessage('loading'), 2000)
       ajax.addEventListener('readystatechange', handleReadyStateChange)
-      $inputCEP.get()[0].value = ''
+      
     }
 
     function cleanCEP() {
@@ -136,38 +58,38 @@
 
     function handleReadyStateChange() {
       if(isRequestOk()){
-       fillCEPFields()
+        getMessage('ok')
+        fillCEPFields()
       }
     }
     
     function isRequestOk() {
       return ajax.readyState === 4 && ajax.status === 200;
     }
-    
+
     function fillCEPFields() {
-      var data = parseData();
-      if(data.status == 0)
-        return getMessage('error')
-      getMessage('ok')
+      var data = JSON.parse(ajax.responseText);
+      if(data.status == 0) {
+        data = {
+          address: ' -',
+          city: ' -',
+          code: ' -',
+          district: ' -',
+          state: ' -'
+      }
+       getMessage('error')
+      }
+      console.log(data)
       $logradouro.get()[0].textContent = ` ${data.address}`
       $bairro.get()[0].textContent = ` ${data.district}`
       $estado.get()[0].textContent = ` ${data.state}`
       $cidade.get()[0].textContent = ` ${data.city}`
       $cep.get()[0].textContent = ` ${data.code}` 
-    }
-
-    function parseData() {
-      var result;
-      try {
-        result = JSON.parse(ajax.responseText);
-      } catch (error) {
-        result = null;
-      }
-      return result
+      $inputCEP.get()[0].value = ''
     }
 
     function getMessage(type) {
-      var cep = $inputCEP.get()[0].value
+      var cep = cleanCEP()
       var messages = {
         loading: `Buscando informações para o CEP ${cep} ....`,
         ok: `Endereço referente ao CEP ${cep}:`,
@@ -175,5 +97,8 @@
       };
       $status.get()[0].textContent = messages[type]
     }
+  }
 
-})()
+   app() 
+
+})(window.DOM)
