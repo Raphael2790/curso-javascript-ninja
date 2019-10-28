@@ -136,7 +136,8 @@
 
     function handleReadyStateChange() {
       if(isRequestOk()){
-       fillCEPFields()
+        getMessage('ok')
+        fillCEPFields()
       }
     }
     
@@ -148,7 +149,6 @@
       var data = parseData();
       if(data.status == 0)
         return getMessage('error')
-      getMessage('ok')
       $logradouro.get()[0].textContent = ` ${data.address}`
       $bairro.get()[0].textContent = ` ${data.district}`
       $estado.get()[0].textContent = ` ${data.state}`
@@ -167,7 +167,7 @@
     }
 
     function getMessage(type) {
-      var cep = $inputCEP.get()[0].value
+      var cep = cleanCEP()
       var messages = {
         loading: `Buscando informações para o CEP ${cep} ....`,
         ok: `Endereço referente ao CEP ${cep}:`,
