@@ -36,7 +36,7 @@
   que será nomeado de "app".
   */
   function app() {
-    var $nomeLoja = document.querySelector('h1');
+    var $nomeLoja = document.querySelector('[]');
     var telefone = document.querySelector('h2');
     var ajax = new XMLHttpRequest()
 

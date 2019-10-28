@@ -3,7 +3,7 @@ ul {
 }
 
 body {
-    font-family: Arial , sans-serif;
+    font-family: sans-serif;
 }
 
 form, table {
@@ -34,4 +34,8 @@ button {
     width: 20vh;
     margin-top: 10px;
     background: green;
+}
+
+input {
+    width: 60vh;
 }
