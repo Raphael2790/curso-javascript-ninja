@@ -1,0 +1,37 @@
+ul {
+    list-style: none;
+}
+
+body {
+    font-family: Arial , sans-serif;
+}
+
+form, table {
+    float: left;
+    width: 50%;
+}
+
+header {
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 5px 15px;
+    border: 1px solid #ccc;
+}
+
+button:hover,
+button:focus {
+    background: darkgreen;
+    cursor: pointer;
+}
+
+button {
+    width: 20vh;
+    margin-top: 10px;
+    background: green;
+}
