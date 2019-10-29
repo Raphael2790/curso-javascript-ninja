@@ -1,4 +1,4 @@
-(() => {
+((DOM) => {
   'use strict';
 
   /*
@@ -36,11 +36,34 @@
   que será nomeado de "app".
   */
   function app() {
-    var $nomeLoja = document.querySelector('[]');
-    var telefone = document.querySelector('h2');
-    var ajax = new XMLHttpRequest()
+    return {
+      init:function init(){
+        this.companyInfo();
+      },
 
+      companyInfo: function companyInfo(){
+        var ajax = new XMLHttpRequest();
+        ajax.open('GET', './company.json', true);
+        ajax.send();
+        ajax.addEventListener('readystatechange', this.getCompanyInfo, false);
+      },
+
+      getCompanyInfo:function getCompanyInfo() {
+        if(!app().isReady.call(this))
+          return;
+        var data = JSON.parse(this.responseText)
+        var $nomeEmpresa = new DOM('[data-js="nomeEmpresa"]')
+        var $telefoneEmpresa = new DOM('[data-js="telefone"]')
+        $nomeEmpresa.textContent = data.name
+        $telefoneEmpresa.textContent = data.phone
+      },
+
+      isReady: function isReady(){
+        return this.readyState === 4 && this.status === 200;
+      }
+    };
   }
 
+  app().init()
 
 })(window.DOM);
