@@ -1,4 +1,4 @@
-((DOM) => {
+(($) => {
   'use strict';
 
   /*
@@ -35,10 +35,32 @@
   E aqui nesse arquivo, faça a lógica para cadastrar os carros, em um módulo
   que será nomeado de "app".
   */
-  function app() {
+  var app = (function () {
     return {
       init:function init(){
         this.companyInfo();
+        this.initEvents();
+      },
+
+      initEvents: function initEvents() {
+        $('[data-js="form-register"]').on('submit', this.handleSubmit);
+      },
+
+      handleSubmit: function handleSubmit(event) {
+        event.preventDefault()
+        var $tabelaCarro = $('[data-js="tabela-carro"]').get()
+        $tabelaCarro.appendChild(app.createNewcar())
+        console.log('submit')
+      },
+
+      createNewcar: function createNewcar() {
+        var $fragment = document.createDocumentFragment();
+        var $tr = document.createElement('tr');
+        var $tdImagem = document.createElement('td');
+        var $tdMarcaModelo = document.createElement('td');
+        var $tdAno = document.createElement('td');
+        var $tdPlaca = document.createElement('td');
+        var $tdCor = document.createElement('td');
       },
 
       companyInfo: function companyInfo(){
@@ -49,11 +71,11 @@
       },
 
       getCompanyInfo:function getCompanyInfo() {
-        if(!app().isReady.call(this))
+        if(!app.isReady.call(this))
           return;
         var data = JSON.parse(this.responseText)
-        var $nomeEmpresa = new DOM('[data-js="nomeEmpresa"]')
-        var $telefoneEmpresa = new DOM('[data-js="telefone"]')
+        var $nomeEmpresa = $('[data-js="nomeEmpresa"]').get()
+        var $telefoneEmpresa = $('[data-js="telefone"]').get()
         $nomeEmpresa.textContent = data.name
         $telefoneEmpresa.textContent = data.phone
       },
@@ -62,8 +84,8 @@
         return this.readyState === 4 && this.status === 200;
       }
     };
-  }
+  })()
 
-  app().init()
+  app.init()
 
 })(window.DOM);
