@@ -5,6 +5,10 @@ ul {
 body {
     font-family: sans-serif;
 }
+img {
+    max-width: 200px;
+    height: auto;
+}
 
 form, table {
     float: left;

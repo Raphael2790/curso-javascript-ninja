@@ -57,10 +57,28 @@
         var $fragment = document.createDocumentFragment();
         var $tr = document.createElement('tr');
         var $tdImagem = document.createElement('td');
+        var $imagem = document.createElement('img')
         var $tdMarcaModelo = document.createElement('td');
         var $tdAno = document.createElement('td');
         var $tdPlaca = document.createElement('td');
         var $tdCor = document.createElement('td');
+
+        $imagem.setAttribute('src', $('[data-js="imagem"]').get().value);
+        $tdImagem.appendChild($imagem)
+
+        $tdMarcaModelo.textContent = $('[data-js="marca-modelo"]').get().value
+        $tdAno.textContent = $('[data-js="ano"]').get().value
+        $tdPlaca.textContent = $('[data-js="placa"]').get().value
+        $tdCor.textContent = $('[data-js="cor"]').get().value
+
+        $tr.appendChild($tdImagem)
+        $tr.appendChild($tdMarcaModelo)
+        $tr.appendChild($tdAno)
+        $tr.appendChild($tdPlaca)
+        $tr.appendChild($tdCor)
+        
+
+        return $fragment.appendChild($tr)
       },
 
       companyInfo: function companyInfo(){
