@@ -39,6 +39,7 @@
     return {
       init:function init(){
         this.companyInfo();
+        this.getDate();
         this.initEvents();
       },
 
@@ -98,6 +99,27 @@
         $telefoneEmpresa.textContent = data.phone
       },
 
+       getDate: function getDate() {
+        var spanHora = document.querySelector('[data-js="hora"]');
+        var spanData = document.querySelector('[data-js="date"]')
+        var diaSemana = ['Domingo', 'Segunda','Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+        var mesAno = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 
+        'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+        function realTime () {
+        var date = new Date()
+        var mostraData = `${diaSemana[date.getDay()]}, ${date.getDate()} ${mesAno[date.getMonth()]} ${date.getFullYear()}`
+        var zeroFill = function (n) { return ('0' + n ).slice(-2)}
+        var h = zeroFill(date.getHours())
+        var min = zeroFill(date.getMinutes())
+        var sec = zeroFill(date.getSeconds())
+        var horaCompleta = `${h}:${min}:${sec}`
+        spanHora.textContent = horaCompleta
+        spanData.textContent = mostraData
+        }
+        realTime()
+        setInterval(realTime, 500)
+      },
+      
       isReady: function isReady(){
         return this.readyState === 4 && this.status === 200;
       }

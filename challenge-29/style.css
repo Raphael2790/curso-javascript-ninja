@@ -5,6 +5,18 @@ ul {
 body {
     font-family: sans-serif;
 }
+
+header div {
+    float: right;
+    padding: 10px;
+    font-weight: bolder;
+    position: relative;
+}
+h1
+{
+    text-align: center;
+}
+
 img {
     max-width: 200px;
     height: auto;
@@ -15,9 +27,6 @@ form, table {
     width: 50%;
 }
 
-header {
-    text-align: center;
-}
 
 table {
     border-collapse: collapse;
