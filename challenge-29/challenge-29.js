@@ -51,7 +51,7 @@
         event.preventDefault()
         var $tabelaCarro = $('[data-js="tabela-carro"]').get()
         $tabelaCarro.appendChild(app.createNewcar())
-        console.log('submit')
+        console.log($tabelaCarro)
       },
 
       createNewcar: function createNewcar() {
@@ -63,22 +63,37 @@
         var $tdAno = document.createElement('td');
         var $tdPlaca = document.createElement('td');
         var $tdCor = document.createElement('td');
+        var $btnDelete = document.createElement('button')
 
         $imagem.setAttribute('src', $('[data-js="imagem"]').get().value);
         $tdImagem.appendChild($imagem)
 
+        
         $tdMarcaModelo.textContent = $('[data-js="marca-modelo"]').get().value
         $tdAno.textContent = $('[data-js="ano"]').get().value
         $tdPlaca.textContent = $('[data-js="placa"]').get().value
         $tdCor.textContent = $('[data-js="cor"]').get().value
-
+        $btnDelete.textContent = 'Deletar'
+        
         $tr.appendChild($tdImagem)
         $tr.appendChild($tdMarcaModelo)
         $tr.appendChild($tdAno)
         $tr.appendChild($tdPlaca)
         $tr.appendChild($tdCor)
+        $tr.appendChild($btnDelete)
         
 
+        $btnDelete.addEventListener('click', deleteElement, false)
+
+        function deleteElement() {
+          $tr.removeChild($tdAno)
+          $tr.removeChild($tdCor)
+          $tr.removeChild($tdPlaca)
+          $tr.removeChild($tdImagem)
+          $tr.removeChild($tdMarcaModelo)
+          $tr.removeChild($btnDelete)
+        }
+        
         return $fragment.appendChild($tr)
       },
 
