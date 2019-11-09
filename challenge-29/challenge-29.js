@@ -64,17 +64,19 @@
         var $tdPlaca = document.createElement('td');
         var $tdCor = document.createElement('td');
         var $btnDelete = document.createElement('button')
+        var $dataTabela = document.createElement('td')
 
         $imagem.setAttribute('src', $('[data-js="imagem"]').get().value);
         $tdImagem.appendChild($imagem)
 
-        
+        $dataTabela.textContent = new Date().getFullYear()
         $tdMarcaModelo.textContent = $('[data-js="marca-modelo"]').get().value
         $tdAno.textContent = $('[data-js="ano"]').get().value
         $tdPlaca.textContent = $('[data-js="placa"]').get().value
         $tdCor.textContent = $('[data-js="cor"]').get().value
         $btnDelete.textContent = 'Deletar'
         
+        $tr.appendChild($dataTabela)
         $tr.appendChild($tdImagem)
         $tr.appendChild($tdMarcaModelo)
         $tr.appendChild($tdAno)
@@ -86,6 +88,7 @@
         $btnDelete.addEventListener('click', deleteElement, false)
 
         function deleteElement() {
+          $tr.removeChild($dataTabela)
           $tr.removeChild($tdAno)
           $tr.removeChild($tdCor)
           $tr.removeChild($tdPlaca)
